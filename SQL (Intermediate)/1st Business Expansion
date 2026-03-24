@@ -1,0 +1,22 @@
+/*
+Enter your query below.
+Please append a semicolon ";" at the end of the query
+*/
+
+SELECT 
+    user_account.id AS user_id,
+    user_account.first_name,
+    user_account.last_name,
+    customer.id AS customer_id,
+    customer.customer_name,
+    COUNT(*) AS contact_count
+FROM contact
+JOIN user_account 
+    ON contact.user_account_id = user_account.id
+JOIN customer 
+    ON contact.customer_id = customer.id
+GROUP BY 
+    user_account.id, user_account.first_name, user_account.last_name,
+    customer.id, customer.customer_name
+HAVING COUNT(*) > 1
+ORDER BY user_account.id ASC;
